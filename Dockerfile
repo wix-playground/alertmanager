@@ -4,12 +4,15 @@ MAINTAINER  Viktor Polishchuk <viktorpo@wix.com>
 RUN apt-get update
 RUN apt-get -y install make
 RUN apt-get -y install golang
-RUN make build
 
-COPY amtool                       /bin/amtool
-COPY alertmanager                 /bin/alertmanager
-COPY config/alertmanager.yml      /etc/alertmanager/alertmanager.yml
-COPY config/*.tmpl                /etc/alertmanager
+COPY * /opt/go/src/alertmanager/
+
+RUN GOPATH=/opt/go make /opt/go/src/alertmanager
+
+COPY /opt/go/src/alertmanager/amtool                       /bin/amtool
+COPY /opt/go/src/alertmanager/alertmanager                 /bin/alertmanager
+COPY /opt/go/src/alertmanager/config/alertmanager.yml      /etc/alertmanager/alertmanager.yml
+COPY /opt/go/src/alertmanager/config/*.tmpl                /etc/alertmanager
 
 EXPOSE     8080
 VOLUME     [ "/alertmanager" ]
