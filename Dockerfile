@@ -1,6 +1,9 @@
 FROM        prom/busybox:latest
 MAINTAINER  Viktor Polishchuk <viktorpo@wix.com>
 
+RUN apt-get update
+RUN apt-get -y install make
+RUN apt-get -y install golang
 RUN make build
 
 COPY amtool                       /bin/amtool
