@@ -1,4 +1,4 @@
-FROM        prom/busybox:latest
+FROM        ubuntu:latest
 MAINTAINER  Viktor Polishchuk <viktorpo@wix.com>
 
 RUN apt-get update
