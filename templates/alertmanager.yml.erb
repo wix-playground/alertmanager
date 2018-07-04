@@ -1,0 +1,56 @@
+global:
+  resolve_timeout: 5m
+  slack_api_url: 'https://hooks.slack.com/services/<%= databag_passwd("com.wixpress.automation.alertmanager","slackApiKey") %>'
+
+route:
+  receiver: 'ignore'
+  routes:
+  - match:
+      origin: 'lifecycle'
+    group_by: ['groupId', 'artifactId', 'version']
+    group_wait: 10s
+    group_interval: 10s
+    continue: true
+    routes:
+    - match_re:
+        version: '^.*RC.*$'
+      receiver: 'http-rc'
+      continue: true
+    - match_re:
+        version: '^.*-.*$'
+      receiver: 'slack-efrat'
+      continue: true
+    - match_re:
+        version: '^.*GA.*$'
+      receiver: 'http-ga'
+      continue: true
+
+receivers:
+- name: 'ignore'
+    ## Blackhole receiver
+- name: 'http-rc'
+  webhook_configs:
+  - url: 'http://127.0.0.1:5001/rc'
+    send_resolved: false
+    message: '{{ template "http.wix.message" . }}'
+- name: 'http-ga'
+  webhook_configs:
+  - url: 'http://127.0.0.1:5001/ga'
+    send_resolved: false
+- name: 'slack-me'
+  slack_configs:
+  - channel: '@viktorpo'
+    title: 'Test message for notification:'
+    title_link: ''
+    username: '{{ template "slack.wix.username" . }}'
+    text: '{{ template "slack.lifecycle.text" . }}'
+- name: 'slack-efrat'
+  slack_configs:
+  - channel: '@efratao'
+    title: 'Test message for notification:'
+    title_link: ''
+    username: '{{ template "slack.wix.username" . }}'
+    text: '{{ template "slack.lifecycle.text" . }}'
+
+templates:
+- 'config/*.tmpl'

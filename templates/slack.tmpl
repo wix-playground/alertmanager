@@ -1,0 +1,9 @@
+{{ define "slack.wix.username" }} New Event Publisher {{ end }}
+
+{{ define "slack.lifecycle.text" }}{{ range .Alerts }}
+*Group ID:* `{{ .Labels.groupId }}`
+*Artifact ID:* `{{ .Labels.artifactId }}`
+*Version:* `{{ .Labels.version }}`
+*CI Name:* `{{ .Labels.buildServer }}`
+*State:* `{{ .Labels.state }}`
+{{ end }}{{ end }}
