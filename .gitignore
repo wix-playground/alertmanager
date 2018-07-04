@@ -6,6 +6,9 @@
 /.build
 /.release
 /.tarballs
+*.iws
+*.ipr
+*.iml
 
 !/cli/testdata/*.yml
 !/cli/config/testdata/*.yml
