@@ -1,12 +1,15 @@
 FROM        prom/busybox:latest
-MAINTAINER  The Prometheus Authors <prometheus-developers@googlegroups.com>
+MAINTAINER  Viktor Polishchuk <viktorpo@wix.com>
+
+RUN make build
 
 COPY amtool                       /bin/amtool
 COPY alertmanager                 /bin/alertmanager
-COPY examples/ha/alertmanager.yml /etc/alertmanager/alertmanager.yml
+COPY config/alertmanager.yml      /etc/alertmanager/alertmanager.yml
+COPY config/*.tmpl                /etc/alertmanager
 
-EXPOSE     9093
+EXPOSE     8080
 VOLUME     [ "/alertmanager" ]
 WORKDIR    /etc/alertmanager
 ENTRYPOINT [ "/bin/alertmanager" ]
-CMD        [ "--storage.path=/alertmanager" ]
+CMD        [ "--storage.path=/alertmanager", "--web.listen-address=:8080" ]
