@@ -18,7 +18,7 @@ route:
       continue: true
     - match_re:
         version: '^.*-.*$'
-      receiver: 'slack-efrat'
+      receiver: 'slack-me'
       continue: true
     - match_re:
         version: '^.*GA.*$'
@@ -53,4 +53,4 @@ receivers:
     text: '{{ template "slack.lifecycle.text" . }}'
 
 templates:
-- 'config/*.tmpl'
+- '/templates/*.tmpl'
