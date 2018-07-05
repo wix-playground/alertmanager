@@ -8,12 +8,11 @@ RUN apt-get install make \
     && make \
     && cp alertmanager /bin/ \
     && mkdir -p /etc/alertmanager/template \
-    && mv ./config/alertmanager.yml /etc/alertmanager/alertmanager.yml \
-    && mv ./config/*.tmpl /etc/alertmanager/template \
+    && mv ./templates /templates \
     && rm -rf /go
 
 EXPOSE     8080
 VOLUME     [ "/alertmanager" ]
 WORKDIR    /alertmanager
 ENTRYPOINT [ "/bin/alertmanager" ]
-CMD        [ "--config.file=/etc/alertmanager/alertmanager.yml", "--storage.path=/alertmanager", "--web.listen-address=:8080" ]
+CMD        [ "--config.file=/config/alertmanager.yml", "--storage.path=/alertmanager", "--web.listen-address=:8080" ]
