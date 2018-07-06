@@ -15,4 +15,4 @@ EXPOSE     8080
 VOLUME     [ "/alertmanager" ]
 WORKDIR    /alertmanager
 ENTRYPOINT [ "/bin/alertmanager" ]
-CMD        [ "--config.file=/config/alertmanager.yml", "--storage.path=/alertmanager", "--web.listen-address=:8080" ]
+CMD        [ "--config.file=/configs/alertmanager.yml", "--storage.path=/alertmanager", "--web.listen-address=:8080" ]
