@@ -1,9 +1,14 @@
-{{ define "slack.wix.username" }} New Event Publisher {{ end }}
+{{ define "slack.teamcity.text" }}{{ range .Alerts }}
+*Artifact:* `{{ .Labels.groupId }}:{{ .Labels.artifactId }}:{{ .Labels.version }}`
+*State:* `{{ .Labels.state }}`
+*Type:* `{{ .Labels.buildServer }}:{{ .Labels.buildType }}`
+{{ template "__text_alert_list" . }}
+{{ end }}{{ end }}
 
 {{ define "slack.lifecycle.text" }}{{ range .Alerts }}
-*Group ID:* `{{ .Labels.groupId }}`
-*Artifact ID:* `{{ .Labels.artifactId }}`
-*Version:* `{{ .Labels.version }}`
+*Type:* `{{ .Labels.buildType }}`
 *CI Name:* `{{ .Labels.buildServer }}`
+*Artifact:* `{{ .Labels.groupId }}:{{ .Labels.artifactId }}:{{ .Labels.version }}`
 *State:* `{{ .Labels.state }}`
+{{ template "__text_alert_list" . }}
 {{ end }}{{ end }}

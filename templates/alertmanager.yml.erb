@@ -12,19 +12,25 @@ route:
     group_interval: 10s
     continue: true
     routes:
-    - match_re:
-        version: '^.*RC.*$'
-      receiver: 'http-rc'
+    - match:
+        artifactType: 'GA'
+      receiver: 'slack-me'
       continue: true
+  - match:
+      origin: 'ci'
+    group_by: ['groupId', 'artifactId', 'version']
+    group_wait: 10s
+    group_interval: 10s
+    continue: true
+    routes:
     - match_re:
-        version: '^.*-.*$'
+        authors: '.*Viktor Polishchuk.*'
       receiver: 'slack-me'
       continue: true
     - match_re:
-        version: '^.*GA.*$'
-      receiver: 'http-ga'
+        authors: '.*Efrat Attas.*'
+      receiver: 'slack-efrat'
       continue: true
-
 receivers:
 - name: 'ignore'
     ## Blackhole receiver
@@ -40,17 +46,15 @@ receivers:
 - name: 'slack-me'
   slack_configs:
   - channel: '@viktorpo'
-    title: 'Test message for notification:'
+    title: 'Build status:'
     title_link: ''
-    username: '{{ template "slack.wix.username" . }}'
-    text: '{{ template "slack.lifecycle.text" . }}'
+    text: '{{ template "slack.teamcity.text" . }}'
 - name: 'slack-efrat'
   slack_configs:
   - channel: '@efratao'
-    title: 'Test message for notification:'
+    title: 'Build status:'
     title_link: ''
-    username: '{{ template "slack.wix.username" . }}'
-    text: '{{ template "slack.lifecycle.text" . }}'
+    text: '{{ template "slack.teamcity.text" . }}'
 
 templates:
 - '/templates/*.tmpl'

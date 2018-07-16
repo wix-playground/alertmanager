@@ -7,7 +7,6 @@ COPY    . /go/src/github.com/prometheus/alertmanager
 RUN apt-get install make \
     && make \
     && cp alertmanager /bin/ \
-    && mkdir -p /etc/alertmanager/template \
     && mv ./templates /templates \
     && rm -rf /go
 
