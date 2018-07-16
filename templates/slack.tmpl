@@ -2,13 +2,15 @@
 *Artifact:* `{{ .Labels.groupId }}:{{ .Labels.artifactId }}:{{ .Labels.version }}`
 *State:* `{{ .Labels.state }}`
 *Type:* `{{ .Labels.buildServer }}:{{ .Labels.buildType }}`
+{{ end }}
 {{ template "__text_alert_list" . }}
-{{ end }}{{ end }}
+{{ end }}
 
 {{ define "slack.lifecycle.text" }}{{ range .Alerts }}
 *Type:* `{{ .Labels.buildType }}`
 *CI Name:* `{{ .Labels.buildServer }}`
 *Artifact:* `{{ .Labels.groupId }}:{{ .Labels.artifactId }}:{{ .Labels.version }}`
 *State:* `{{ .Labels.state }}`
+{{ end }}
 {{ template "__text_alert_list" . }}
-{{ end }}{{ end }}
+{{ end }}
