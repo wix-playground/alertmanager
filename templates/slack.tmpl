@@ -1,16 +1,24 @@
 {{ define "slack.teamcity.text" }}{{ range .Alerts }}
 *Artifact:* `{{ .Labels.groupId }}:{{ .Labels.artifactId }}:{{ .Labels.version }}`
 *State:* `{{ .Labels.state }}`
-*Type:* `{{ .Labels.buildServer }}:{{ .Labels.buildType }}`
+*Type:* `{{ .Labels.buildServer }}:{{ .Labels.artifactType }}`
+*All Labels:*
+{{ range .Labels.SortedPairs }} - {{ .Name }} = {{ .Value }}
+{{ end }}*All Annotations:*
+{{ range .Annotations.SortedPairs }} - {{ .Name }} = {{ .Value }}
 {{ end }}
-{{ template "__text_alert_list" . }}
+{{ end }}
 {{ end }}
 
 {{ define "slack.lifecycle.text" }}{{ range .Alerts }}
-*Type:* `{{ .Labels.buildType }}`
-*CI Name:* `{{ .Labels.buildServer }}`
 *Artifact:* `{{ .Labels.groupId }}:{{ .Labels.artifactId }}:{{ .Labels.version }}`
 *State:* `{{ .Labels.state }}`
+*Type:* `{{ .Labels.buildServer }}:{{ .Labels.artifactType }}`
+
+*All Labels:*
+{{ range .Labels.SortedPairs }} - {{ .Name }} = {{ .Value }}
+{{ end }}*All Annotations:*
+{{ range .Annotations.SortedPairs }} - {{ .Name }} = {{ .Value }}
 {{ end }}
-{{ template "__text_alert_list" . }}
+{{ end }}
 {{ end }}
