@@ -1,0 +1,26 @@
+  - match:
+      origin: 'lifecycle'
+    group_by: ['groupId', 'artifactId', 'version']
+    group_wait: 10s
+    group_interval: 10s
+    continue: true
+    routes:
+    - match:
+        artifactType: 'GA'
+      receiver: 'slack-me'
+      continue: true
+  - match:
+      origin: 'ci'
+    group_by: ['groupId', 'artifactId', 'version']
+    group_wait: 10s
+    group_interval: 10s
+    continue: true
+    routes:
+    - match_re:
+        authors: '.*Viktor Polishchuk.*'
+      receiver: 'slack-me'
+      continue: true
+    - match_re:
+        authors: '.*Efrat Attas.*'
+      receiver: 'slack-efrat'
+      continue: true

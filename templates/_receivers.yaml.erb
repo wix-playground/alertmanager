@@ -1,0 +1,21 @@
+- name: 'http-rc'
+  webhook_configs:
+  - url: 'http://127.0.0.1:5001/rc'
+    send_resolved: false
+    message: '{{ template "http.wix.message" . }}'
+- name: 'http-ga'
+  webhook_configs:
+  - url: 'http://127.0.0.1:5001/ga'
+    send_resolved: false
+- name: 'slack-me'
+  slack_configs:
+  - channel: '@viktorpo'
+    title: '{{ template "slack.teamcity.title" . }}'
+    title_link: ''
+    text: '{{ template "slack.teamcity.text" . }}'
+- name: 'slack-efrat'
+  slack_configs:
+  - channel: '@efratao'
+    title: '{{ template "slack.teamcity.title" . }}'
+    title_link: ''
+    text: '{{ template "slack.teamcity.text" . }}'

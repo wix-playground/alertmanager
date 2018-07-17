@@ -1,3 +1,5 @@
+{{ define "slack.teamcity.title" }}{{ range .Alerts }}Build {{ .Labels.status }}{{ end }}{{ end }}
+
 {{ define "slack.teamcity.text" }}{{ range .Alerts }}
 *Artifact:* `{{ .Labels.groupId }}:{{ .Labels.artifactId }}:{{ .Labels.version }}`
 *State:* `{{ .Labels.state }}`
@@ -5,20 +7,7 @@
 *All Labels:*
 {{ range .Labels.SortedPairs }} - {{ .Name }} = {{ .Value }}
 {{ end }}*All Annotations:*
-{{ range .Annotations.SortedPairs }} - {{ .Name }} = {{ .Value }}
-{{ end }}
-{{ end }}
-{{ end }}
-
-{{ define "slack.lifecycle.text" }}{{ range .Alerts }}
-*Artifact:* `{{ .Labels.groupId }}:{{ .Labels.artifactId }}:{{ .Labels.version }}`
-*State:* `{{ .Labels.state }}`
-*Type:* `{{ .Labels.buildServer }}:{{ .Labels.artifactType }}`
-
-*All Labels:*
-{{ range .Labels.SortedPairs }} - {{ .Name }} = {{ .Value }}
-{{ end }}*All Annotations:*
-{{ range .Annotations.SortedPairs }} - {{ .Name }} = {{ .Value }}
+{{ range .Annotations.SortedPairs }} - {{ .Name }}: ```{{ .Value }}```
 {{ end }}
 {{ end }}
 {{ end }}
