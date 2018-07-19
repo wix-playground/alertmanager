@@ -1,11 +1,11 @@
-<%= render '_global.yaml.erb' %>
+<%= render '/templates/_global.yaml.erb' %>
 route:
   receiver: 'ignore'
   routes:
-<%= render '_routes.yaml.erb' %>
+<%= render '/templates/_routes.yaml.erb' %>
 receivers:
 - name: 'ignore'
     ## Blackhole receiver
-<%= render '_receivers.yaml.erb' %>
+<%= render '/templates/_receivers.yaml.erb' %>
 templates:
 - '/templates/*.tmpl'
