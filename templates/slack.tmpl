@@ -2,7 +2,6 @@
 
 {{ define "slack.build.text" }}{{ range .Alerts }}
 *Artifact:* `{{ .Labels.groupId }}:{{ .Labels.artifactId }}:{{ .Labels.version }}`
-*State:* `{{ .Labels.state }}`
 *Type:* `{{ .Labels.buildServer }}:{{ .Labels.artifactType }}`
 *All Labels:*
 {{ range .Labels.SortedPairs }} - {{ .Name }} = {{ .Value }}
