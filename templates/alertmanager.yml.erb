@@ -1,11 +1,74 @@
-<%= render '/templates/_global.yaml.erb' %>
+##
+## Global settings
+##
+global:
+  resolve_timeout: 5m
+  slack_api_url: 'https://hooks.slack.com/services/<%= databag_passwd("com.wixpress.automation.alertmanager","slackApiKey") %>'
+
+##
+## Nested routes
+##
 route:
   receiver: 'ignore'
   routes:
-<%= render '/templates/_routes.yaml.erb' %>
+  - match:
+      origin: 'lifecycle'
+    group_by: ['groupId', 'artifactId', 'version']
+    group_wait: 10s
+    group_interval: 10s
+    continue: true
+    routes:
+    - match:
+        artifactType: 'GA'
+        groupId: 'com.wixpress.automation'
+      receiver: 'slack-build-viktorpo'
+      continue: true
+  - match:
+      origin: 'ci'
+    group_by: ['groupId', 'artifactId', 'version']
+    group_wait: 10s
+    group_interval: 10s
+    continue: true
+    routes:
+    - match_re:
+        authors: '.*Viktor Polishchuk.*'
+      receiver: 'slack-build-viktorpo'
+      continue: true
+    - match_re:
+        authors: '.*Efrat Attas.*'
+      receiver: 'slack-build-efrat'
+      continue: true
+
+##
+## Receivers list
+##
 receivers:
 - name: 'ignore'
     ## Blackhole receiver
-<%= render '/templates/_receivers.yaml.erb' %>
+- name: 'http-rc'
+  webhook_configs:
+  - url: 'http://127.0.0.1:5001/rc'
+    send_resolved: false
+    message: '{{ template "http.wix.message" . }}'
+- name: 'http-ga'
+  webhook_configs:
+  - url: 'http://127.0.0.1:5001/ga'
+    send_resolved: false
+- name: 'slack-build-viktorpo'
+  slack_configs:
+  - channel: '@viktorpo'
+    title: '{{ template "slack.build.title" . }}'
+    title_link: ''
+    text: '{{ template "slack.build.text" . }}'
+- name: 'slack-build-efrat'
+  slack_configs:
+  - channel: '@efratao'
+    title: '{{ template "slack.build.title" . }}'
+    title_link: ''
+    text: '{{ template "slack.build.text" . }}'
+
+##
+## Message templates
+##
 templates:
 - '/templates/*.tmpl'

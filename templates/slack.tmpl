@@ -1,6 +1,6 @@
-{{ define "slack.teamcity.title" }}{{ range .Alerts }}Build {{ .Labels.status }}{{ end }}{{ end }}
+{{ define "slack.build.title" }}{{ range .Alerts }}Build {{ .Labels.status }}{{ end }}{{ end }}
 
-{{ define "slack.teamcity.text" }}{{ range .Alerts }}
+{{ define "slack.build.text" }}{{ range .Alerts }}
 *Artifact:* `{{ .Labels.groupId }}:{{ .Labels.artifactId }}:{{ .Labels.version }}`
 *State:* `{{ .Labels.state }}`
 *Type:* `{{ .Labels.buildServer }}:{{ .Labels.artifactType }}`
