@@ -347,6 +347,9 @@ type WebhookConfig struct {
 
 	// JSON message which will be sent instead of serialized data object
 	Message string `yaml:"message,omitempty" json:"message,omitempty"`
+
+	// JSON message which will be sent instead of serialized data object
+	HTTPHeaders string `yaml:"http_headers,omitempty" json:"http_headers,omitempty"`
 }
 
 // UnmarshalYAML implements the yaml.Unmarshaler interface.

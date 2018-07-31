@@ -256,7 +256,7 @@ func TestHideConfigSecrets(t *testing.T) {
 
 	// String method must not reveal authentication credentials.
 	s := c.String()
-	secretRe := regexp.MustCompile("<secret>")
+	secretRe := regexp.MustCompile("<[s]{1}ecret>")
 	matches := secretRe.FindAllStringIndex(s, -1)
 	if len(matches) != 14 || strings.Contains(s, "mysecret") {
 		t.Fatal("config's String method reveals authentication credentials.")

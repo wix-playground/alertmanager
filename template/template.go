@@ -131,6 +131,14 @@ var DefaultFuncs = FuncMap{
 	"safeHtml": func(text string) tmplhtml.HTML {
 		return tmplhtml.HTML(text)
 	},
+	"toJsonString": func(text string) string {
+		if text != "" {
+			re := regexp.MustCompile("[\r\n]+")
+			return re.ReplaceAllString(tmplhtml.JSEscaper(text), "\n")
+		} else {
+			return text
+		}
+	},
 	"reReplaceAll": func(pattern, repl, text string) string {
 		re := regexp.MustCompile(pattern)
 		return re.ReplaceAllString(text, repl)

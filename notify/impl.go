@@ -40,6 +40,7 @@ import (
 	"golang.org/x/net/context"
 	"golang.org/x/net/context/ctxhttp"
 
+	"bufio"
 	"github.com/prometheus/alertmanager/config"
 	"github.com/prometheus/alertmanager/template"
 	"github.com/prometheus/alertmanager/types"
@@ -184,6 +185,15 @@ func (w *Webhook) Notify(ctx context.Context, alerts ...*types.Alert) (bool, err
 	}
 	req.Header.Set("Content-Type", contentTypeJSON)
 	req.Header.Set("User-Agent", userAgentHeader)
+
+	if headers := tmplText(w.conf.HTTPHeaders); headers != "" {
+		scanner := bufio.NewScanner(strings.NewReader(headers))
+
+		for scanner.Scan() {
+			var a = strings.SplitN(scanner.Text(), ":", 2)
+			req.Header.Set(a[0], a[1])
+		}
+	}
 
 	c, err := commoncfg.NewClientFromConfig(*w.conf.HTTPConfig, "webhook")
 	if err != nil {

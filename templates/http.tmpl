@@ -1,1 +1,22 @@
-{{ define "http.wix.message" }}{{ range .Alerts }}{"summary":"{{ .Labels.artifactId }}"}{{ end }}{{ end }}
+{{ define "http.rc.message" }}{{ range .Alerts }}{
+"groupId":"{{ .Labels.groupId }}",
+"artifactId":"{{ .Labels.artifactId }}",
+"version":"{{ .Labels.version }}",
+"projects":"{{ .Labels.projects }}",
+"commits":"{{ toJsonString .Annotations.commits }}"
+}{{ end }}{{ end }}
+
+{{ define "http.ga.message" }}{{ range .Alerts }}{
+"groupId":"{{ .Labels.groupId }}",
+"artifactId":"{{ .Labels.artifactId }}",
+"version":"{{ .Labels.version }}",
+"projects":"{{ .Labels.projects }}"
+}{{ end }}{{ end }}
+
+{{ define "http.rollback.message" }}{{ range .Alerts }}{
+"groupId":"{{ .Labels.groupId }}",
+"artifactId":"{{ .Labels.artifactId }}",
+"version":"{{ .Labels.version }}",
+"projects":"{{ .Labels.projects }}",
+"commits":""
+}{{ end }}{{ end }}
