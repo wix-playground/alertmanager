@@ -60,19 +60,19 @@ receivers:
   - url: 'https://jira-services.appspot.com/api/build/rc'
     send_resolved: false
     message: '{{ template "http.rc.message" . }}'
-    http_headers: 'x-wix-automation-instance: <%= databag_passwd("com.wixpress.automation.automation-event-publisher-web","jiraApiKey") %>'
+    http_headers: 'x-wix-automation-instance:<%= databag_passwd("com.wixpress.automation.automation-event-publisher-web","jiraApiKey") %>'
 - name: 'jira-ga'
   webhook_configs:
   - url: 'https://jira-services.appspot.com/api/build/ga'
     send_resolved: false
     message: '{{ template "http.ga.message" . }}'
-    http_headers: 'x-wix-automation-instance: <%= databag_passwd("com.wixpress.automation.automation-event-publisher-web","jiraApiKey") %>'
+    http_headers: 'x-wix-automation-instance:<%= databag_passwd("com.wixpress.automation.automation-event-publisher-web","jiraApiKey") %>'
 - name: 'jira-rollback'
   webhook_configs:
   - url: 'https://jira-services.appspot.com/api/build/rollback'
     send_resolved: false
     message: '{{ template "http.rollback.message" . }}'
-    http_headers: 'x-wix-automation-instance: <%= databag_passwd("com.wixpress.automation.automation-event-publisher-web","jiraApiKey") %>'
+    http_headers: 'x-wix-automation-instance:<%= databag_passwd("com.wixpress.automation.automation-event-publisher-web","jiraApiKey") %>'
 - name: 'slack-build-viktorpo'
   slack_configs:
   - channel: '@viktorpo'

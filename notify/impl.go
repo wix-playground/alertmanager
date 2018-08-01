@@ -191,7 +191,7 @@ func (w *Webhook) Notify(ctx context.Context, alerts ...*types.Alert) (bool, err
 
 		for scanner.Scan() {
 			var a = strings.SplitN(scanner.Text(), ":", 2)
-			req.Header.Set(a[0], a[1])
+			req.Header.Set(strings.TrimSpace(a[0]), strings.TrimSpace(a[1]))
 		}
 	}
 
