@@ -20,18 +20,19 @@ route:
     routes:
     - match:
         artifactType: 'RC'
-        groupId: 'com.wixpress.automation'
       receiver: 'jira-rc'
       continue: true
     - match:
         artifactType: 'GA'
-        groupId: 'com.wixpress.automation'
       receiver: 'jira-ga'
       continue: true
     - match:
         artifactType: 'ROLLBACK'
-        groupId: 'com.wixpress.automation'
       receiver: 'jira-rollback'
+      continue: true
+    - match_re:
+        artifactType: '^(RC|GA|ROLLBACK)$'
+      receiver: 'slack-build-viktorpo'
       continue: true
   - match:
       origin: 'ci'
