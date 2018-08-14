@@ -20,19 +20,18 @@ route:
     routes:
     - match:
         artifactType: 'RC'
+        status: 'SUCCESS'
       receiver: 'jira-rc'
       continue: true
     - match:
         artifactType: 'GA'
+        status: 'SUCCESS'
       receiver: 'jira-ga'
       continue: true
     - match:
         artifactType: 'ROLLBACK'
+        status: 'SUCCESS'
       receiver: 'jira-rollback'
-      continue: true
-    - match_re:
-        artifactType: '^(RC|GA|ROLLBACK)$'
-      receiver: 'slack-build-viktorpo'
       continue: true
   - match:
       origin: 'ci'
