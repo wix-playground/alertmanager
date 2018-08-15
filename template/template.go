@@ -27,10 +27,10 @@ import (
 
 	"github.com/prometheus/common/model"
 
+	"encoding/json"
 	"github.com/prometheus/alertmanager/template/internal/deftmpl"
 	"github.com/prometheus/alertmanager/types"
-	"encoding/json"
-	)
+)
 
 // Template bundles a text and a html template instance.
 type Template struct {

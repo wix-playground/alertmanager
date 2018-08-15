@@ -32,7 +32,7 @@ func TestPairNames(t *testing.T) {
 }
 
 func TestToJsonString(t *testing.T) {
-	values := []string {
+	values := []string{
 		``,
 		`simple string`,
 		`multiline string:
