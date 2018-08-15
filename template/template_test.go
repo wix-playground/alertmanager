@@ -31,6 +31,27 @@ func TestPairNames(t *testing.T) {
 	require.EqualValues(t, expected, pairs.Names())
 }
 
+func TestToJsonString(t *testing.T) {
+	values := []string {
+		``,
+		`simple string`,
+		`multiline string:
+first line
+second line`,
+		`a string with "quotes" somewhere`,
+	}
+
+	expected := []string{`""`, `"simple string"`, `"multiline string:\nfirst line\nsecond line"`, `"a string with \"quotes\" somewhere"`}
+
+	type ToJsonString func(string) string
+
+	fn := ToJsonString(DefaultFuncs["toJsonString"].(func(string) string))
+
+	for i, str := range values {
+		require.EqualValues(t, expected[i], fn(str))
+	}
+}
+
 func TestPairValues(t *testing.T) {
 	pairs := Pairs{
 		{"name1", "value1"},

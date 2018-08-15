@@ -29,7 +29,8 @@ import (
 
 	"github.com/prometheus/alertmanager/template/internal/deftmpl"
 	"github.com/prometheus/alertmanager/types"
-)
+	"encoding/json"
+	)
 
 // Template bundles a text and a html template instance.
 type Template struct {
@@ -132,12 +133,13 @@ var DefaultFuncs = FuncMap{
 		return tmplhtml.HTML(text)
 	},
 	"toJsonString": func(text string) string {
-		if text != "" {
-			re := regexp.MustCompile("[\r\n]+")
-			return re.ReplaceAllString(tmplhtml.JSEscaper(text), "\n")
-		} else {
-			return text
+		bytes, err := json.Marshal(text)
+
+		if err != nil {
+			panic(err)
 		}
+
+		return string(bytes)
 	},
 	"reReplaceAll": func(pattern, repl, text string) string {
 		re := regexp.MustCompile(pattern)
