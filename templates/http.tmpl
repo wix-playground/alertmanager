@@ -10,7 +10,7 @@
 "groupId":"{{ .Labels.groupId }}",
 "artifactId":"{{ .Labels.artifactId }}",
 "version":"{{ .Labels.version }}",
-"projects":"{{ .Labels.projects }}"
+"projects":"{{ .Labels.projects }}",
 "commits":{{ toJsonString .Annotations.commits }}
 }{{ end }}{{ end }}
 
