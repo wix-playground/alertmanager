@@ -10,8 +10,7 @@
 "groupId":"{{ .Labels.groupId }}",
 "artifactId":"{{ .Labels.artifactId }}",
 "version":"{{ .Labels.version }}",
-"projects":"{{ .Labels.projects }}",
-"commits":{{ toJsonString .Annotations.commits }}
+"projects":"{{ .Labels.projects }}"
 }{{ end }}{{ end }}
 
 {{ define "http.rollback.message" }}{{ range .Alerts }}{
