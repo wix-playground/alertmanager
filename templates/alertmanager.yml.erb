@@ -12,6 +12,15 @@ route:
   receiver: 'ignore'
   routes:
   - match:
+      origin: 'event-dispatcher'
+    group_by: ['error']
+    group_wait: 10s
+    group_interval: 10s
+    continue: true
+    routes:
+    - receiver: 'slack-error-viktorpo'
+      continue: true
+  - match:
       origin: 'ci'
     group_by: ['groupId', 'artifactId', 'version']
     group_wait: 10s
@@ -86,6 +95,12 @@ receivers:
     title: '{{ template "slack.build.title" . }}'
     title_link: ''
     text: '{{ template "slack.build.text" . }}'
+- name: 'slack-error-viktorpo'
+  slack_configs:
+  - channel: '@viktorpo'
+    title: '{{ template "slack.error.title" . }}'
+    title_link: ''
+    text: '{{ template "slack.error.text" . }}'
 - name: 'slack-build-efrat'
   slack_configs:
   - channel: '@efratao'
