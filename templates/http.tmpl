@@ -3,14 +3,15 @@
 "artifactId":"{{ .Labels.artifactId }}",
 "version":"{{ .Labels.version }}",
 "projects":"{{ .Labels.projects }}",
-"commits":{{ toJsonString .Annotations.commits }}
+"commits":{{ .Annotations.commits | toJsonString }}
 }{{ end }}{{ end }}
 
 {{ define "http.ga.message" }}{{ range .Alerts }}{
 "groupId":"{{ .Labels.groupId }}",
 "artifactId":"{{ .Labels.artifactId }}",
 "version":"{{ .Labels.version }}",
-"projects":"{{ .Labels.projects }}"
+"projects":"{{ .Labels.projects }}",
+"commits":{{ .Annotations.commits | toJsonString }}
 }{{ end }}{{ end }}
 
 {{ define "http.rollback.message" }}{{ range .Alerts }}{
@@ -18,5 +19,5 @@
 "artifactId":"{{ .Labels.artifactId }}",
 "version":"{{ .Labels.version }}",
 "projects":"{{ .Labels.projects }}",
-"commits":{{ toJsonString .Annotations.commits }}
+"commits":{{ .Annotations.commits | toJsonString }}
 }{{ end }}{{ end }}
