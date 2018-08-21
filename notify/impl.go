@@ -173,6 +173,8 @@ func (w *Webhook) Notify(ctx context.Context, alerts ...*types.Alert) (bool, err
 		if err != nil {
 			return false, err
 		}
+
+		println(messageText)
 	} else {
 		if err := json.NewEncoder(&buf).Encode(msg); err != nil {
 			return false, err
