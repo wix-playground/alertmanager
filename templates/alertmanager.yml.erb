@@ -11,15 +11,15 @@ global:
 route:
   receiver: 'ignore'
   routes:
-  - match:
-      origin: 'event-dispatcher'
-    group_by: ['module', 'message']
-    group_wait: 10s
-    group_interval: 10s
-    continue: true
-    routes:
-    - receiver: 'slack-error-viktorpo'
-      continue: true
+#  - match:
+#      origin: 'event-dispatcher'
+#    group_by: ['module', 'message']
+#    group_wait: 10s
+#    group_interval: 10s
+#    continue: true
+#    routes:
+#    - receiver: 'slack-error-viktorpo'
+#      continue: true
   - match:
       origin: 'ci'
     group_by: ['groupId', 'artifactId', 'version']
