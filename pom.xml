@@ -18,5 +18,12 @@
                 <role>owner</role>
             </roles>
         </developer>
+        <developer>
+            <email>efratao@wix.com</email>
+            <name>Efrat Attas</name>
+            <roles>
+                <role>owner</role>
+            </roles>
+        </developer>
     </developers>
 </project>
